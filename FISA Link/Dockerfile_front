@@ -9,7 +9,6 @@ COPY . /app
 
 # Installer les dépendances
 RUN pip install --upgrade pip \
-    && pip install -r requirements.txt \
     && chmod +x /app/run_web.sh
 
 # Exposer le port 8800 pour le service web

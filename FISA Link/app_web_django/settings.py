@@ -117,18 +117,19 @@ WSGI_APPLICATION = 'app_web_django.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-"""
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bd_django',
-        'USER': 'root',
-        'PASSWORD': 'ajdak898hdbqg67',
-        'HOST': '172.255.0.4',  # L'adresse IP du serveur MariaDB dans le network Docker
-        'PORT': '3306',  # Le port MariaDB
+        'ENGINE': 'django.db.backends.mysql',  # L'ENGINE doit être configuré pour MySQL/MariaDB
+        'NAME': 'bd_django',                   # Nom de la base de données
+        'USER': 'FISA_user_bd',                # Utilisateur de la base de données
+        'PASSWORD': 'FISA_Link_corentin789',   # Mot de passe de l'utilisateur
+        'HOST': '172.255.0.4',                 # L'IP du conteneur MariaDB
+        'PORT': '3306',                        # Le port MariaDB
     }
 }
-"""
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
