@@ -1,6 +1,5 @@
 CREATE TABLE fisa_years (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    year INT NOT NULL,
+    year INT NOT NULL PRIMARY KEY,
     nom_promotion VARCHAR(255) NOT NULL
 );
 
@@ -10,7 +9,7 @@ CREATE TABLE students (
     last_name VARCHAR(150) NOT NULL,
     email_tsp VARCHAR(254),
     fisa_year_id INT,
-    FOREIGN KEY (fisa_year_id) REFERENCES fisa_years(id)
+    FOREIGN KEY (fisa_year_id) REFERENCES fisa_years(year)
 );
 
 CREATE TABLE users (
@@ -32,7 +31,7 @@ CREATE TABLE data_link (
     title VARCHAR(255) NOT NULL,
     `desc` TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (fisa_year_id) REFERENCES fisa_years(id)
+    FOREIGN KEY (fisa_year_id) REFERENCES fisa_years(year)
 );
 
 CREATE TABLE SIF (
