@@ -1,4 +1,3 @@
 mysqlclient
 django-cors-headers
-django-cors-headers
 mysql-connector-python

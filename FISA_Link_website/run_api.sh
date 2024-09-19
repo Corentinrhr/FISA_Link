@@ -4,12 +4,8 @@
 PROJECT_DIR="$(dirname "$0")"
 cd "$PROJECT_DIR" || { echo "Échec du changement de répertoire vers $PROJECT_DIR"; exit 1; }
 
-
 # Nom de l'environnement virtuel
 ENV_NAME="FISA_Link_py_env"
-
-# Aller dans le répertoire du projet
-cd "$PROJECT_DIR" || { echo "Répertoire du projet non trouvé"; exit 1; }
 
 # Vérifier si l'environnement virtuel existe
 if [ ! -d "$ENV_NAME" ]; then
@@ -25,11 +21,11 @@ echo "Installation des dépendances..."
 pip install --upgrade pip
 pip install -r requirements.txt
 
+# Boucle pour lancer le serveur API
 while true
 do
     echo "Lancement du serveur API..."
     python ./manage.py makemigrations myapi --settings=app_web_django.settings_api
-    python ./manage.py migrate myapi --settings=app_web_django.settings_api
     python ./manage.py runserver 0.0.0.0:8801 --settings=app_web_django.settings_api
     echo "Le serveur API a crashé. Redémarrage dans 30 secondes..."
     sleep 30
