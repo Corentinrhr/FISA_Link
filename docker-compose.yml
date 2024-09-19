@@ -15,6 +15,17 @@ services:
       fisa_network:
         ipv4_address: 172.255.0.4
 
+  web:
+    build:
+      context: ./FISA_Link_website # Chemin vers le dossier contenant Dockerfile_front
+      dockerfile: Dockerfile_front # Spécifier le fichier Dockerfile renommé
+    container_name: django_web
+    ports:
+      - "8800:8800"
+    networks:
+      fisa_network:
+        ipv4_address: 172.255.0.100
+
 volumes:
   mariadb_data:
     driver: local

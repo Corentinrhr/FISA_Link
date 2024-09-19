@@ -1,0 +1,17 @@
+# Utiliser une image de base avec Python
+FROM python:3.10-slim
+
+# Définir le répertoire de travail dans le conteneur
+WORKDIR /app
+
+# Copier les fichiers du projet dans le conteneur
+COPY . /app
+
+# Rendre le script exécutable
+RUN chmod +x /app/run_web.sh
+
+# Exposer le port 8800
+EXPOSE 8800
+
+# Commande pour lancer le script bash
+CMD ["/bin/bash", "/app/run_web.sh"]
