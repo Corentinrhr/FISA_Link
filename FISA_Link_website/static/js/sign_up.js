@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = '/';  // Redirection en cas de succès
             } else if (data.error) {
                 // Afficher le message d'erreur
-                alert(data.error);
+                window.location.href = '/';  
             } else {
                 // Gestion de cas inattendus
                 alert('Réponse inattendue du serveur.');

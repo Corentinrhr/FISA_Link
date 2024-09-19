@@ -161,7 +161,8 @@ def login_user(request):
         data = json.loads(request.body)
         email = data.get('email')
         password = data.get('password')
-
+        nom = data.get('nom')
+        prenom = data.get('prenom')
         try:
             # Requête SQL pour récupérer l'utilisateur et son mot de passe haché
             with connection.cursor() as cursor:
@@ -172,7 +173,19 @@ def login_user(request):
                     WHERE email_tsp = %s
                 """, [email])
                 result = cursor.fetchone()
-
+            if not result :
+                try:
+                    # Requête SQL pour récupérer l'utilisateur et son mot de passe haché
+                    with connection.cursor() as cursor:
+                        cursor.execute("""
+                            SELECT users.id, password, is_active 
+                            FROM users 
+                            INNER JOIN students ON students.id = users.student_id 
+                            WHERE first_name = %s and last_name=%s
+                        """, [prenom,nom])
+                        result = cursor.fetchone()
+                except Exception as e:
+                    return JsonResponse({'status': 'error', 'message': str(e)})
             if result:
                 db_id, db_hashed_password, is_active = result
                 
@@ -280,9 +293,9 @@ def register_user(request):
                     return JsonResponse({'error': 'Email non trouvé pour cet étudiant.'}, status=404)
 
             # Envoie l'email de vérification
-            envoyer_email_validation(email_tsp, token)
+            #envoyer_email_validation(email_tsp, token)
             
-            return JsonResponse({'message': 'Utilisateur enregistré avec succès ! Veuillez valider votre compte avec l email envoyé sur votre compte TSP.'})
+            return JsonResponse({'message': 'Utilisateur enregistré avec succès ! Veuillez valider votre compte avec l email envoyé sur votre compte TSP (ou si en local UPDATE à 1 is_active de votre compte).'})
         
         except DatabaseError as e:
             return JsonResponse({'error': f'Erreur de base de données : {str(e)}'}, status=500)
@@ -475,7 +488,7 @@ def set_sif_status(request):
                             cursor.execute("""
                                 INSERT INTO SIF (id_student) VALUES (%s)
                             """, [id_student])
-                        envoyer_email_inscription_SIF(email_tsp, first_name)
+                        #envoyer_email_inscription_SIF(email_tsp, first_name)
                     return JsonResponse({'status': 'success', 'message': 'Student status inserted successfully'}, status=200)
                 
                 else:
@@ -489,7 +502,7 @@ def set_sif_status(request):
                             cursor.execute("""
                                 DELETE FROM SIF WHERE id_student = %s
                             """, [id_student])
-                        envoyer_email_desinscription_SIF(email_tsp, first_name)
+                        #envoyer_email_desinscription_SIF(email_tsp, first_name)
                     return JsonResponse({'status': 'success', 'message': 'Student status deleted successfully'}, status=200)
             
             except json.JSONDecodeError:

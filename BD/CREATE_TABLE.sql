@@ -8,8 +8,8 @@ CREATE TABLE students (
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(150) NOT NULL,
     email_tsp VARCHAR(254),
-    fisa_year_id INT,
-    FOREIGN KEY (fisa_year_id) REFERENCES fisa_years(year)
+    fisa_year INT,
+    FOREIGN KEY (fisa_year) REFERENCES fisa_years(year)
 );
 
 CREATE TABLE users (
@@ -20,18 +20,20 @@ CREATE TABLE users (
     is_superuser TINYINT(1) DEFAULT 0,
     date_joined DATETIME DEFAULT CURRENT_TIMESTAMP,
     student_id INT,
+    token CHAR(64),
+    auth_cookie VARCHAR(255);
     FOREIGN KEY (student_id) REFERENCES students(id)
 );
 
 CREATE TABLE data_link (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    fisa_year_id INT,
+    fisa_year INT,
     type VARCHAR(100) NOT NULL,
     link TEXT NOT NULL,
     title VARCHAR(255) NOT NULL,
     `desc` TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (fisa_year_id) REFERENCES fisa_years(year)
+    FOREIGN KEY (fisa_year) REFERENCES fisa_years(year)
 );
 
 CREATE TABLE SIF (

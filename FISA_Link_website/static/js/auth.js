@@ -18,10 +18,10 @@ function handleFormSubmit(event) {
     }
 
     // Traite l'email
-    const email = formatEmail(email_input);
+    const result = formatEmail(email_input);
 
     // Envoie la requête d'authentification
-    authenticateUser(email, password);
+    authenticateUser(result.email, password, result.nom , result.prenom);
 }
 
 // Fonction pour valider les entrées du formulaire
@@ -38,14 +38,22 @@ function formatEmail(email_input) {
     let email = email_input.trim(); // Supprime les espaces
     email = email.replace(/\s+(?!$)/g, '_').replace(/^\s+|\s+$/g, '');
     if (email.includes('@')) {
-        return email.split('@')[0] + '@telecom-sudparis.eu';
-    } else {
-        return email + '@telecom-sudparis.eu';
+        email = email.split('@')[0];
     }
+    // Séparer la chaîne en utilisant le point comme délimiteur
+    let parts = email.split('.');
+    let prenom = parts[0];
+    let nom = parts[1];
+    email += '@telecom-sudparis.eu';
+    return {
+        nom: nom,
+        prenom: prenom,
+        email: email
+    };
 }
 
 // Fonction pour authentifier l'utilisateur via l'API
-function authenticateUser(email, password) {
+function authenticateUser(email, password, nom, prenom) {
     fetch('/api/login/', { 
         method: 'POST',
         headers: {
@@ -54,7 +62,10 @@ function authenticateUser(email, password) {
         },
         body: JSON.stringify({
             email: email,
-            password: password
+            password: password,
+            nom: nom,
+            prenom: prenom,
+
         })
     })
     .then(handleResponse)

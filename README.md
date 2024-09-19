@@ -22,4 +22,7 @@ Ajouter tout d'abord une année FISA :
 `INSERT INTO fisa_years (year, nom_promotion) VALUES (2, 'Kilo'),(1, 'Lima'),(3, 'Juliet');`
 
 Pour ajouter un étudiant pouvant se créer un compte sur le site web :
-INSERT INTO students (first_name, last_name, email_tsp, fisa_year_id) VALUES ('Corentin', 'R', 'corentin.r@tsp.com',1);
+`INSERT INTO students (first_name, last_name, email_tsp, fisa_year) VALUES ('Corentin', 'R', 'corentin.r@tsp.com',2);`
+
+Créer un compte depuis le site web (Les mots de passe sont hashés c'est pourquoi il faut créer un mot de passe directement sur ce lien ou insérer le hash du mot de passe dans la table "users").
+`http://localhost/inscription`
