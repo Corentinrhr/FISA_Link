@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Chemin vers le répertoire du projet
-PROJECT_DIR="/home/corentinrhr/Documents/FISA_Link/FISA Link"
+PROJECT_DIR="$(dirname "$0")"
+cd "$PROJECT_DIR" || { echo "Échec du changement de répertoire vers $PROJECT_DIR"; exit 1; }
+
 
 # Nom de l'environnement virtuel
 ENV_NAME="FISA_Link_py_env"
@@ -26,7 +28,6 @@ pip install -r requirements.txt
 while true
 do
     echo "Lancement du serveur API..."
-    python ./manage.py collectstatic --noinput
     python ./manage.py makemigrations myapi --settings=app_web_django.settings_api
     python ./manage.py migrate myapi --settings=app_web_django.settings_api
     python ./manage.py runserver 0.0.0.0:8801 --settings=app_web_django.settings_api

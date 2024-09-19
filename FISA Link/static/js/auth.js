@@ -46,7 +46,7 @@ function formatEmail(email_input) {
 
 // Fonction pour authentifier l'utilisateur via l'API
 function authenticateUser(email, password) {
-    fetch('https://fisa-link.duckdns.org/api/login/', { 
+    fetch('/api/login/', { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ function handleError(error) {
 
 // Fonction pour auto-login
 function autologin() {
-    fetch('https://fisa-link.duckdns.org/api/auto_login/', { 
+    fetch('/api/auto_login/', { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

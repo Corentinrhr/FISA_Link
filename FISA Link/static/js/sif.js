@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function start (){
     const CSRFtoken = getCSRFToken();
-    fetch('https://fisa-link.duckdns.org/api/dashboard/', {
+    fetch('/api/dashboard/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ function start (){
 }
 
 function getSIFstatus(CSRFtoken) {
-    fetch('https://fisa-link.duckdns.org/api/get_sif_status/', {
+    fetch('/api/get_sif_status/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -131,7 +131,7 @@ function getSIFstatus(CSRFtoken) {
 }
 
 function changeBungalowStatus(CSRFtoken, sifStatus, selectedBungalow) {
-    fetch('https://fisa-link.duckdns.org/api/set_sif_change_bungalow/', {
+    fetch('/api/set_sif_change_bungalow/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -186,7 +186,7 @@ document.getElementById('confirm-unsubscribe-button').addEventListener('click', 
 
 // Fonction pour envoyer la requête API
 function changePizzaStatus(CSRFtoken, sifStatus, selectedPizza) {
-    fetch('https://fisa-link.duckdns.org/api/set_sif_change_pizza/', {
+    fetch('/api/set_sif_change_pizza/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -220,7 +220,7 @@ function changePizzaStatus(CSRFtoken, sifStatus, selectedPizza) {
 }
 
 function change_sif_status(CSRFtoken, sif_status) {
-    fetch('https://fisa-link.duckdns.org/api/set_sif_status/', {
+    fetch('/api/set_sif_status/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -327,7 +327,7 @@ function insererQRCodes() {
     const CSRFtoken = getCSRFToken();  // Récupérer le token CSRF
 
     // Effectuer la requête POST pour récupérer les données
-    fetch('https://fisa-link.duckdns.org/api/get_paiement_sif/', {
+    fetch('/api/get_paiement_sif/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const csrftoken = csrftokenElement.value;
 
         // Envoyer une requête POST à l'API
-        fetch('https://fisa-link.duckdns.org/api/sign_up/', {
+        fetch('/api/sign_up/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

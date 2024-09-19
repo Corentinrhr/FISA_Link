@@ -54,7 +54,8 @@ MIDDLEWARE = [
 
 ]
 
-CSRF_TRUSTED_ORIGINS = ['*']
+#Activer pour la production : 
+#CSRF_TRUSTED_ORIGINS = ['']
 #CSRF_COOKIE_SECURE = True
 
 ROOT_URLCONF = 'app_web_django.urls'
@@ -116,6 +117,7 @@ WSGI_APPLICATION = 'app_web_django.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -126,6 +128,7 @@ DATABASES = {
         'PORT': '3306',  # Le port MariaDB
     }
 }
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

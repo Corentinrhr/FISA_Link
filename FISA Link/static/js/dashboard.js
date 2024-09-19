@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Récupérer le prénom de l'utilisateur
-    fetch('https://fisa-link.duckdns.org/api/dashboard/', {
+    fetch('/api/dashboard/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

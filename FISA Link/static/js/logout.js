@@ -2,7 +2,7 @@
     document.getElementById('logout-button').addEventListener('click', function(event) {
         event.preventDefault();
         // Supprimer le cookie auth_token côté serveur
-        fetch('https://fisa-link.duckdns.org/api/logout/', {
+        fetch('/api/logout/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

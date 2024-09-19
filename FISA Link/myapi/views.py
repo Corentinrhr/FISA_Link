@@ -13,6 +13,7 @@ from django.conf import settings # type: ignore
 from django.utils.html import format_html # type: ignore
 import uuid
 
+@csrf_exempt
 def verif_token_user(request):
     auth_token = request.COOKIES.get('auth_token')
     if not auth_token:
@@ -111,6 +112,7 @@ def envoyer_email_desinscription_SIF(destinataire, prenom):
         fail_silently=False,  # Affiche une erreur en cas d'échec
     )
 
+@csrf_exempt
 def get_users(request):
     with connection.cursor() as cursor:
         cursor.execute("SELECT id, is_active, date_joined FROM users")
@@ -127,6 +129,7 @@ def get_users(request):
     
     return JsonResponse(users, safe=False)
 
+@csrf_exempt
 def validate_mail(request) :
     token = request.GET.get('t')
     if token:
@@ -152,6 +155,7 @@ def validate_mail(request) :
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
 
+@csrf_exempt
 def login_user(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -211,6 +215,7 @@ def login_user(request):
     
     return JsonResponse({'status': 'error', 'message': 'Méthode non autorisée'})
 
+@csrf_exempt
 def register_user(request):
     if request.method == 'POST':
         try:
@@ -315,6 +320,7 @@ def load_link(fisa_year):
 
     return links_data
 
+@csrf_exempt
 def dashboard(request):
     if request.method == 'POST':
         result = verif_token_user(request)
@@ -340,6 +346,7 @@ def dashboard(request):
 
     return JsonResponse({'status': 'error', 'message': 'Méthode non autorisée'})
 
+@csrf_exempt
 def auto_login(request):
     if request.method == 'POST':
         try:
@@ -351,6 +358,7 @@ def auto_login(request):
         return JsonResponse({'status': 'error', 'message': 'Token manquant'})
     return JsonResponse({'status': 'error', 'message': 'Méthode non autorisée'}, status=405)
 
+@csrf_exempt
 def logout_user(request):
     # Vérifie que la requête est une requête POST
     if request.method == 'POST':
@@ -366,6 +374,7 @@ def logout_user(request):
     # Si la méthode n'est pas POST, renvoyer une réponse avec une erreur
     return JsonResponse({'status': 'error', 'message': 'Méthode non autorisée'}, status=405)
 
+@csrf_exempt
 def get_bungalow_infos():
     # Récupère les infos générales sur le SIF
             with connection.cursor() as cursor:
@@ -398,6 +407,7 @@ def get_bungalow_infos():
             # Convertir les ensembles en listes pour la réponse JSON
             return {k: list(v) for k, v in list_bungalows.items()} , unique_name
 
+@csrf_exempt
 def get_sif_status(request):
     if request.method == 'POST':
         result = verif_token_user(request)
@@ -438,6 +448,7 @@ def get_sif_status(request):
             return response
     return JsonResponse({'status': 'error', 'message': 'Méthode non autorisée'})
 
+@csrf_exempt
 def set_sif_status(request):
     if request.method == 'POST':
         result = verif_token_user(request)
@@ -492,7 +503,7 @@ def set_sif_status(request):
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
-
+@csrf_exempt
 def set_sif_change_pizza(request):
     if request.method == 'POST':
         result = verif_token_user(request)
@@ -525,6 +536,7 @@ def set_sif_change_pizza(request):
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
+@csrf_exempt
 def set_sif_change_bungalow(request):
     if request.method == 'POST':
         result = verif_token_user(request)
@@ -587,6 +599,7 @@ def set_sif_change_bungalow(request):
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
+@csrf_exempt
 def get_paiement_sif(request):
     if request.method == 'POST':
         result = verif_token_user(request)
