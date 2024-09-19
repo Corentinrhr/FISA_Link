@@ -1,0 +1,98 @@
+services:
+  django-web:
+    build:
+      context: /home/corentinrhr/django-site
+      dockerfile: Dockerfile_front
+    container_name: site-django-web
+    ports:
+      - "8800:8800"
+    volumes:
+      - /home/corentinrhr/django-site:/app
+    environment:
+      - DEBUG=1
+    networks:
+      network-bd:
+        ipv4_address: 172.255.0.100
+
+  django-api:
+    build:
+      context: /home/corentinrhr/django-site
+      dockerfile: Dockerfile_api
+    container_name: site-django-api
+    ports:
+      - "8801:8801"
+    volumes:
+      - /home/corentinrhr/django-site:/app
+    environment:
+      - DEBUG=1
+    networks:
+      network-bd:
+        ipv4_address: 172.255.0.101
+
+  db:
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: eD2gMDkkWr7k9wg9Lb
+    ports:
+      - "3306:3306"
+    networks:
+      network-bd:
+        ipv4_address: 172.255.0.102
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - "9080:9000"
+    networks:
+      network-bd:
+        ipv4_address: 172.255.0.103
+
+  nginx:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    restart: unless-stopped
+    environment:
+      DB_MYSQL_HOST: "nginx-db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "abdzhaj189"
+      DB_MYSQL_PASSWORD: "oAVMYrrJr4rcjKnVEVhrt3y"
+      DB_MYSQL_NAME: "nginx"
+    volumes:
+      - /docker/nginx-proxy-manager/data:/data
+      - /docker/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - nginx-db
+    networks:
+      network-bd:
+        ipv4_address: 172.255.0.104
+
+  nginx-db:
+    image: 'jc21/mariadb-aria:latest'
+    container_name: nginx-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'oAVMYrrJr489jK7dzhdu91p'
+      MYSQL_DATABASE: 'nginx'
+      MYSQL_USER: 'abd45pj189'
+      MYSQL_PASSWORD: 'oAVMYroac4rcjKnVEVhrt3y8'
+    volumes:
+      - /docker/nginx-proxy-manager/mysql:/var/lib/mysql
+    networks:
+      network-bd:
+        ipv4_address: 172.255.0.105
+
+networks:
+  network-bd:
+    external: true
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.255.0.0/24

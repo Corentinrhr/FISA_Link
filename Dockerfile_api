@@ -1,0 +1,18 @@
+# Dockerfile_api
+FROM python:3.11-bullseye
+
+# Définir le répertoire de travail
+WORKDIR /app
+
+# Copier les fichiers du projet dans le conteneur
+COPY . /app
+
+# Installer les dépendances
+RUN pip install --upgrade pip \
+    && chmod +x /app/run_api.sh
+
+# Exposer le port 8801 pour le service API
+EXPOSE 8801
+
+# Commande par défaut
+CMD ["/app/run_api.sh"]
