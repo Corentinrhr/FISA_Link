@@ -122,7 +122,7 @@ DATABASES = {
         'NAME': 'bd_django',
         'USER': 'root',
         'PASSWORD': 'ajdak898hdbqg67',
-        'HOST': '172.255.0.2',  # L'adresse IP du serveur MariaDB dans le network Docker
+        'HOST': '172.255.0.4',  # L'adresse IP du serveur MariaDB dans le network Docker
         'PORT': '3306',  # Le port MariaDB
     }
 }
