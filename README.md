@@ -14,7 +14,7 @@ Version de Docker-compose > 2.0 (vous pouvez vérifiez votre version avec `docke
 
 # Schéma infra réseau
 <p align="center">
-    <img src="https://github.com/Corentinrhr/FISA_Link/blob/main/BD/Sch%C3%A9ma_Relationnel_BD.png?raw=true" alt="Infra res docker">
+    <img src="https://github.com/Corentinrhr/FISA_Link/blob/main/schema_infra_reseau.png?raw=true" alt="Infra res docker">
 </p>
 
 # Réponses aux questions
@@ -50,7 +50,7 @@ Lorsque plusieurs conteneurs sont sur le même réseau Docker, comme un conteneu
 # Fonctionnement du site web django
 Le site charge une base de données remplies avec un étudiant FISA ayant le droit de s'inscrire sur la page http://localhost/inscription.
 Vous pouvez ainsi vous inscrire avec Prénom : 'Corentin' , Nom : 'R' et Année FISA : '2A'.
-Vous pouvez ensuite vous identifier et accéder à FISA Link et à l'inscription au SIF (Séminaire d'intégration FISA).
+Vous pouvez ensuite vous identifier avec le nom d'utilisateur 'corentin.r' et le mot de passe saisi précédemment et ainsi accéder à FISA Link et à l'inscription au SIF (Séminaire d'intégration FISA).
 
 ## Accéder au site web 
 http://localhost/
