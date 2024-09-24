@@ -394,7 +394,7 @@ def get_bungalow_infos():
                 cursor.execute("""
                     SELECT first_name, last_name, bungalow, pizza 
                     FROM SIF 
-                    INNER JOIN students ON SIF.id_student = students.id 
+                    INNER JOIN students ON SIF.student_id = students.id 
                 """)
                 result_sif = cursor.fetchall()  # Utilisez fetchall() pour récupérer toutes les lignes
 
@@ -433,7 +433,7 @@ def get_sif_status(request):
                 cursor.execute("""
                     SELECT bungalow, pizza 
                     FROM SIF 
-                    WHERE id_student = %s
+                    WHERE student_id = %s
                 """, [id_student])
                 result_user = cursor.fetchone()
             if result_user:
@@ -480,13 +480,13 @@ def set_sif_status(request):
                 if sif_status:
                     with connection.cursor() as cursor:
                         cursor.execute("""
-                           SELECT id FROM SIF WHERE id_student=%s
+                           SELECT id FROM SIF WHERE student_id=%s
                         """, [id_student])
                         result = cursor.fetchone()
                     if result is None:
                         with connection.cursor() as cursor:
                             cursor.execute("""
-                                INSERT INTO SIF (id_student) VALUES (%s)
+                                INSERT INTO SIF (student_id) VALUES (%s)
                             """, [id_student])
                         #envoyer_email_inscription_SIF(email_tsp, first_name)
                     return JsonResponse({'status': 'success', 'message': 'Student status inserted successfully'}, status=200)
@@ -494,13 +494,13 @@ def set_sif_status(request):
                 else:
                     with connection.cursor() as cursor:
                         cursor.execute("""
-                           SELECT id FROM SIF WHERE id_student=%s
+                           SELECT id FROM SIF WHERE student_id=%s
                         """, [id_student])
                         result = cursor.fetchone()
                     if result is not None :
                         with connection.cursor() as cursor:
                             cursor.execute("""
-                                DELETE FROM SIF WHERE id_student = %s
+                                DELETE FROM SIF WHERE student_id = %s
                             """, [id_student])
                         #envoyer_email_desinscription_SIF(email_tsp, first_name)
                     return JsonResponse({'status': 'success', 'message': 'Student status deleted successfully'}, status=200)
@@ -534,7 +534,7 @@ def set_sif_change_pizza(request):
                         cursor.execute("""
                             UPDATE SIF
                             SET pizza = %s
-                            WHERE id_student = %s;
+                            WHERE student_id = %s;
                         """, [pizza_status, id_student])
                     return JsonResponse({'status': 'success', 'message': 'Pizza choisi id : '+str(id_student)}, status=200)
                 else:
@@ -593,7 +593,7 @@ def set_sif_change_bungalow(request):
                             cursor.execute("""
                                 UPDATE SIF
                                 SET bungalow = %s
-                                WHERE id_student = %s;
+                                WHERE student_id = %s;
                             """, [bungalow_status, id_student])
                         
                         return JsonResponse({'status': 'success', 'message': 'Bungalow choisi'}, status=200)

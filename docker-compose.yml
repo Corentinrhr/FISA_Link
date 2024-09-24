@@ -9,8 +9,6 @@ services:
       MYSQL_DATABASE: 'bd_django'
       MYSQL_USER: 'FISA_user_bd'
       MYSQL_PASSWORD: 'FISA_Link_corentin789'
-    ports:
-      - "3306:3306"
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./BD/check_bd.sh:/usr/local/bin/check_mysql.sh
