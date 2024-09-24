@@ -56,16 +56,16 @@ CREATE TABLE SIF (
 -- Ajouter les années FISA
 INSERT INTO fisa_years (year, nom_promotion) VALUES 
     (0, 'FISA'),
-    (2, 'Kilo'),
     (1, 'Lima'),
+    (2, 'Kilo'),
     (3, 'Juliet');
-
--- Ajouter des liens à présenter
-INSERT INTO data_link (fisa_year, type, link, title, `desc`, created_at) VALUES 
-    (0, 'WhatsApp', 'https://chat.whatsapp.com/EXnszNls8PN3ivAK2XTlmS', 'Whatsapp de l\'ASINT', 'Le groupe Whatsapp de l\'association sportive de TSP', '2024-09-12 13:16:56'),
-    (0, 'Instagram', 'https://www.instagram.com/fipa_kilo?igsh=Nm8wZmZvN21lcGdn', 'Instagram FISA Kilo (2A)', 'Page Instagram des FISA Kilo. Abonnez-vous !', '2024-09-12 13:33:09'),
-    (0, 'Web', 'https://ecampus.imtbs-tsp.eu/', 'Ecampus', 'Site web d\'accès à l\'espace personnel étudiant. Ici, vous pourrez consulter vos mails, accéder à Moodle, gérer vos impressions...', '2024-09-12 14:44:50');
 
 -- Ajouter un étudiant
 INSERT INTO students (first_name, last_name, email_tsp, fisa_year) VALUES 
     ('Corentin', 'R', 'corentin.r@telecom-sudparis.eu', 2);
+
+-- Ajouter des liens à présenter
+INSERT INTO data_link (fisa_year, type, link, title, `desc`, created_at) VALUES 
+    (0, 'WhatsApp', 'https://chat.whatsapp.com/EXnszNls8PN3ivAK2XTlmS', 'Whatsapp de l\'ASINT', 'Le groupe Whatsapp de l\'association sportive de TSP', NOW()),
+    (0, 'Instagram', 'https://www.instagram.com/fipa_kilo?igsh=Nm8wZmZvN21lcGdn', 'Instagram FISA Kilo (2A)', 'Page Instagram des FISA Kilo. Abonnez-vous !', NOW()),
+    (0, 'Web', 'https://ecampus.imtbs-tsp.eu/', 'Ecampus', 'Site web d\'accès à l\'espace personnel étudiant. Ici, vous pourrez consulter vos mails, accéder à Moodle, gérer vos impressions...', NOW());

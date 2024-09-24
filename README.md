@@ -1,12 +1,20 @@
 # FISA_Link
 Site web Django pour le projet "Architectures distribuées et application web" en FISA à TSP.
 
+# Prérequis 
+Version de Docker-compose > 2.0 (vous pouvez vérifiez votre version avec `docker-compose --version`)
+
 # Lancement du projet Django
 `sudo docker-compose up --build --remove-orphans`
 
 # Schéma de ma base de données
 <p align="center">
-    <img src="https://github.com/Corentinrhr/FISA_Link/blob/main/BD/Sch%C3%A9ma_Relationnel_BD.png?raw=true" alt="Infra à reproduire">
+    <img src="https://github.com/Corentinrhr/FISA_Link/blob/main/BD/Sch%C3%A9ma_Relationnel_BD.png?raw=true" alt="Base de données">
+</p>
+
+# Schéma infra réseau
+<p align="center">
+    <img src="https://github.com/Corentinrhr/FISA_Link/blob/main/BD/Sch%C3%A9ma_Relationnel_BD.png?raw=true" alt="Infra res docker">
 </p>
 
 # Réponses aux questions
@@ -40,6 +48,10 @@ Une méthode courante pour définir des variables d'environnement dans un conten
 Lorsque plusieurs conteneurs sont sur le même réseau Docker, comme un conteneur Nginx et un conteneur web avec Django, ils peuvent communiquer en utilisant leurs noms de service. Ainsi, dans ce cas, Nginx peut accéder au serveur web Django via l'URL `http://web:8000`, sans avoir besoin d'utiliser les adresses IP des conteneurs. Cela simplifie la communication et rend le déploiement plus flexible.
 
 # Fonctionnement du site web django
+Le site charge une base de données remplies avec un étudiant FISA ayant le droit de s'inscrire sur la page http://localhost/inscription.
+Vous pouvez ainsi vous inscrire avec Prénom : 'Corentin' , Nom : 'R' et Année FISA : '2A'.
+Vous pouvez ensuite vous identifier et accéder à FISA Link et à l'inscription au SIF (Séminaire d'intégration FISA).
+
 ## Accéder au site web 
 http://localhost/
 
