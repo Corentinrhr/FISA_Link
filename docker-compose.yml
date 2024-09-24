@@ -14,6 +14,7 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./BD/check_bd.sh:/usr/local/bin/check_mysql.sh
+      - ./BD/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       fisa_network:
         ipv4_address: 172.255.0.4
