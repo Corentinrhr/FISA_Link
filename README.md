@@ -53,14 +53,14 @@ Vous pouvez ainsi vous inscrire avec Prénom : 'Corentin' , Nom : 'R' et Année 
 Vous pouvez ensuite vous identifier avec le nom d'utilisateur 'corentin.r' et le mot de passe saisi précédemment et ainsi accéder à FISA Link et à l'inscription au SIF (Séminaire d'intégration FISA).
 
 ## Récap liste chemins URL 
-## Site Web : <br>
+### Site Web : <br>
     admin/
     [name='index']
     inscription [name='sign_up']
     mail_valide [name='mail_valide']
     dashboard [name='dashboard']
     sif [name='sif']
-## API : <br>
+### API : <br>
     api/login/ [name='login_user']
     api/sign_up/ [name='register_user']
     api/verify-email/ [name='validate_mail']
