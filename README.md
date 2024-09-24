@@ -1,20 +1,51 @@
 # FISA_Link
-Site web django pour le projet "Architectures distribuées et application web" en FISA à TSP.
+Site web Django pour le projet "Architectures distribuées et application web" en FISA à TSP.
+
+# Réponses aux questions
+
+## Fonctionnement de Django
+
+### Affichage de la page index.html
+Lorsqu'un utilisateur accède à l'URL `/`, Django reçoit cette requête et cherche une correspondance dans le fichier `urls.py` de l'application `public`. Ce fichier redirige la requête vers une vue située dans `public/views.py`. Cette vue est responsable de rendre la page `index.html`, laquelle est stockée dans le répertoire `public/templates/index.html`. Une fois le template rendu, la vue renvoie la page HTML au navigateur de l'utilisateur. En plus des fichiers `views.py`, `urls.py` et `index.html`, le fichier `settings.py` est également utile pour indiquer à Django où chercher les templates.
+
+### Configuration de la base de données
+La configuration de la base de données que l'on souhaite utiliser dans un projet Django se fait dans le fichier `settings.py`, dans la section nommée `DATABASES`. C'est ici que l'on définit les paramètres nécessaires, comme le type de base de données (par exemple PostgreSQL ou SQLite), l'hôte, le port, le nom de la base de données, ainsi que les informations d'authentification comme l'utilisateur et le mot de passe.
+
+### Configuration du fichier de paramètres
+Le fichier principal pour les paramètres est `settings.py`, où sont définis les réglages globaux du projet. Il existe aussi `wsgi.py` ou `asgi.py`, qui permettent de gérer la communication entre le serveur web et Django, jouant le rôle de point d'entrée pour les requêtes. Enfin, le fichier `manage.py` est utilisé pour exécuter diverses commandes Django, tout en prenant en compte les paramètres définis dans `settings.py`.
+
+### Effet des commandes makemigrations et migrate
+La commande `python manage.py makemigrations` permet de créer des fichiers de migration basés sur les modifications effectuées dans les modèles de votre projet Django. Ces fichiers sont stockés dans le répertoire `migrations/`. La commande `python manage.py migrate`, quant à elle, applique ces migrations à la base de données, ce qui a pour effet de modifier sa structure en fonction des modèles définis. Pendant ces exécutions, les fichiers dans le dossier `migrations/` sont utilisés, ainsi que la base de données.
+
+## Fonctionnement de Docker
+
+### Commandes Dockerfile
+La commande `FROM` dans un Dockerfile spécifie l'image de base à partir de laquelle le conteneur sera construit, comme par exemple `python:3.9`. La commande `RUN` permet d'exécuter des instructions à l'intérieur de l'image, par exemple pour installer des dépendances. `WORKDIR` définit le répertoire de travail à l'intérieur du conteneur, ce qui simplifie l'exécution des commandes dans cet environnement. La commande `EXPOSE` sert à déclarer un port que le conteneur rend accessible, tel que le port 8000. Enfin, `CMD` définit la commande par défaut qui sera exécutée lors du démarrage du conteneur.
+
+### Définition d'un service dans docker-compose.yml
+Dans un fichier `docker-compose.yml`, la section `ports: - "80:80"` indique que le port 80 de la machine hôte est redirigé vers le port 80 du conteneur, permettant ainsi un accès à ce service depuis l'extérieur. L'instruction `build: context: . dockerfile: Dockerfile.api` spécifie que l'image doit être construite à partir du fichier `Dockerfile.api` situé dans le répertoire courant. Le paramètre `depends_on: - web - api` définit que ce service dépend du démarrage préalable des services `web` et `api`. Quant à la section `environment`, elle permet de définir des variables d'environnement, telles que les informations de connexion à PostgreSQL, directement dans le fichier `docker-compose.yml`.
+
+### Définition des variables d'environnement
+Une méthode courante pour définir des variables d'environnement dans un conteneur est d'utiliser un fichier `.env` qui contient ces variables, ou bien de les spécifier directement dans la section `environment` du fichier `docker-compose.yml`.
+
+### Communication entre les conteneurs (nginx et web)
+Lorsque plusieurs conteneurs sont sur le même réseau Docker, comme un conteneur Nginx et un conteneur web avec Django, ils peuvent communiquer en utilisant leurs noms de service. Ainsi, dans ce cas, Nginx peut accéder au serveur web Django via l'URL `http://web:8000`, sans avoir besoin d'utiliser les adresses IP des conteneurs. Cela simplifie la communication et rend le déploiement plus flexible.
 
 # Lancement du projet Django
 `sudo docker-compose up --build --remove-orphans`
 
-# Accéder au site web 
+# Fonctionnement du site web django
+## Accéder au site web 
 http://localhost/
 
-# Essayer l'API du site web
+## Essayer l'API du site web
 http://localhost/api/dashboard <br>
 Note : Vous devriez avoir une erreur "Méthode non autorisée" en y accédant depuis un navigateur.
 
-# Se connecter à la base de données
+## Se connecter à la base de données
 `mysql -u root -p mysql -h 127.0.0.1 -P 3306 -u root -pFISA_hcajbjaibh672983`
 
-# Remplir la base de données
+## Remplir la base de données
 La base de données utilisée dans le site web : <br>
 `USE bd_django;`
 
@@ -28,8 +59,8 @@ Pour ajouter un étudiant pouvant se créer un compte sur le site web : <br>
 `INSERT INTO students (first_name, last_name, email_tsp, fisa_year) VALUES ('Corentin', 'R', 'corentin.r@telecom-sudparis.eu',2);`
 
 Créer un compte depuis le site web avec un nom et prénom présent dans la table "students" : <br>
-http://localhost/inscription
+`http://localhost/inscription`
 
 Note : Les mots de passe sont hashés c'est pourquoi il faut créer un mot de passe directement sur ce lien ou insérer le hash du mot de passe dans la table "users"
 
-Identifiez-vous sur http://localhost, vous devriez être redirigé automatiquement sur : http://localhost/dashboard
+Identifiez-vous sur `http://localhost`, vous devriez être redirigé automatiquement sur : `http://localhost/dashboard`
