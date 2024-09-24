@@ -52,6 +52,27 @@ Le site charge une base de données remplies avec un étudiant FISA ayant le dro
 Vous pouvez ainsi vous inscrire avec Prénom : 'Corentin' , Nom : 'R' et Année FISA : '2A'.  <br>
 Vous pouvez ensuite vous identifier avec le nom d'utilisateur 'corentin.r' et le mot de passe saisi précédemment et ainsi accéder à FISA Link et à l'inscription au SIF (Séminaire d'intégration FISA).
 
+## Récap liste chemins URL 
+Site Web : <br>
+    admin/ <br>
+    [name='index'] <br>
+    inscription [name='sign_up'] <br>
+    mail_valide [name='mail_valide'] <br>
+    dashboard [name='dashboard'] <br>
+    sif [name='sif'] <br>
+API : <br>
+    api/login/ [name='login_user'] <br>
+    api/sign_up/ [name='register_user'] <br>
+    api/verify-email/ [name='validate_mail'] <br>
+    api/dashboard/ [name='dashboard'] <br>
+    api/logout/ [name='logout'] <br>
+    api/auto_login/ [name='auto_login'] <br>
+    api/get_sif_status/ [name='get_sif_status'] <br>
+    api/set_sif_status/ [name='set_sif_status'] <br>
+    api/set_sif_change_bungalow/ [name='set_sif_change_bungalow'] <br>
+    api/set_sif_change_pizza/ [name='set_sif_change_pizza'] <br>
+    api/get_paiement_sif/ [name='get_paiement_sif'] <br>
+
 ## Accéder au site web 
 http://localhost/
 
