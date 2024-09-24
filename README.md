@@ -1,12 +1,20 @@
 # FISA_Link
 Site web Django pour le projet "Architectures distribuées et application web" en FISA à TSP.
 
+# Lancement du projet Django
+`sudo docker-compose up --build --remove-orphans`
+
+# Schéma de ma base de données
+<p align="center">
+    <img src="https://github.com/Corentinrhr/FISA_Link/blob/main/BD/Sch%C3%A9ma_Relationnel_BD.png?raw=true" alt="Infra à reproduire">
+</p>
+
 # Réponses aux questions
 
 ## Fonctionnement de Django
 
 ### Affichage de la page index.html
-Lorsqu'un utilisateur accède à l'URL `/`, Django reçoit cette requête et cherche une correspondance dans le fichier `urls.py` de l'application `public`. Ce fichier redirige la requête vers une vue située dans `public/views.py`. Cette vue est responsable de rendre la page `index.html`, laquelle est stockée dans le répertoire `public/templates/index.html`. Une fois le template rendu, la vue renvoie la page HTML au navigateur de l'utilisateur. En plus des fichiers `views.py`, `urls.py` et `index.html`, le fichier `settings.py` est également utile pour indiquer à Django où chercher les templates.
+Lorsqu'un utilisateur accède à l'URL `/`, Django reçoit cette requête et cherche une correspondance dans le fichier `urls.py` de l'application `app_web_django`. Ce fichier inclut les `urls.py` des 2 autres applications `main` et `myapi`. Cela redirige ensuite la requête vers une vue située dans `main/views.py` ou `myapi/views.py` selon l'url. Cette vue est responsable de rendre les pages web ou requetes API. En particulier, pour `index.html`, celle-ci est stockée dans le répertoire `templates/index.html`. Une fois le template rendu, la vue renvoie la page HTML au navigateur de l'utilisateur. En plus des fichiers `views.py`, `urls.py` et `index.html`, le fichier `settings.py` est également utile pour indiquer à Django où chercher les templates.
 
 ### Configuration de la base de données
 La configuration de la base de données que l'on souhaite utiliser dans un projet Django se fait dans le fichier `settings.py`, dans la section nommée `DATABASES`. C'est ici que l'on définit les paramètres nécessaires, comme le type de base de données (par exemple PostgreSQL ou SQLite), l'hôte, le port, le nom de la base de données, ainsi que les informations d'authentification comme l'utilisateur et le mot de passe.
@@ -20,7 +28,7 @@ La commande `python manage.py makemigrations` permet de créer des fichiers de m
 ## Fonctionnement de Docker
 
 ### Commandes Dockerfile
-La commande `FROM` dans un Dockerfile spécifie l'image de base à partir de laquelle le conteneur sera construit, comme par exemple `python:3.9`. La commande `RUN` permet d'exécuter des instructions à l'intérieur de l'image, par exemple pour installer des dépendances. `WORKDIR` définit le répertoire de travail à l'intérieur du conteneur, ce qui simplifie l'exécution des commandes dans cet environnement. La commande `EXPOSE` sert à déclarer un port que le conteneur rend accessible, tel que le port 8000. Enfin, `CMD` définit la commande par défaut qui sera exécutée lors du démarrage du conteneur.
+La commande `FROM` dans un Dockerfile spécifie l'image de base à partir de laquelle le conteneur sera construit, comme par exemple `python:3.10`. La commande `RUN` permet d'exécuter des instructions à l'intérieur de l'image, par exemple pour installer des dépendances. `WORKDIR` définit le répertoire de travail à l'intérieur du conteneur, ce qui simplifie l'exécution des commandes dans cet environnement. La commande `EXPOSE` sert à déclarer un port que le conteneur rend accessible, tel que le port 8000. Enfin, `CMD` définit la commande par défaut qui sera exécutée lors du démarrage du conteneur.
 
 ### Définition d'un service dans docker-compose.yml
 Dans un fichier `docker-compose.yml`, la section `ports: - "80:80"` indique que le port 80 de la machine hôte est redirigé vers le port 80 du conteneur, permettant ainsi un accès à ce service depuis l'extérieur. L'instruction `build: context: . dockerfile: Dockerfile.api` spécifie que l'image doit être construite à partir du fichier `Dockerfile.api` situé dans le répertoire courant. Le paramètre `depends_on: - web - api` définit que ce service dépend du démarrage préalable des services `web` et `api`. Quant à la section `environment`, elle permet de définir des variables d'environnement, telles que les informations de connexion à PostgreSQL, directement dans le fichier `docker-compose.yml`.
@@ -31,9 +39,6 @@ Une méthode courante pour définir des variables d'environnement dans un conten
 ### Communication entre les conteneurs (nginx et web)
 Lorsque plusieurs conteneurs sont sur le même réseau Docker, comme un conteneur Nginx et un conteneur web avec Django, ils peuvent communiquer en utilisant leurs noms de service. Ainsi, dans ce cas, Nginx peut accéder au serveur web Django via l'URL `http://web:8000`, sans avoir besoin d'utiliser les adresses IP des conteneurs. Cela simplifie la communication et rend le déploiement plus flexible.
 
-# Lancement du projet Django
-`sudo docker-compose up --build --remove-orphans`
-
 # Fonctionnement du site web django
 ## Accéder au site web 
 http://localhost/
@@ -43,6 +48,7 @@ http://localhost/api/dashboard <br>
 Note : Vous devriez avoir une erreur "Méthode non autorisée" en y accédant depuis un navigateur.
 
 ## Se connecter à la base de données
+Se connecter au container mariadb
 `mysql -u root -p mysql -h 127.0.0.1 -P 3306 -u root -pFISA_hcajbjaibh672983`
 
 ## Remplir la base de données
