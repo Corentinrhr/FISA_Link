@@ -54,24 +54,24 @@ Vous pouvez ensuite vous identifier avec le nom d'utilisateur 'corentin.r' et le
 
 ## Récap liste chemins URL 
 ## Site Web : <br>
-    admin/ <br>
-    [name='index'] <br>
-    inscription [name='sign_up'] <br>
-    mail_valide [name='mail_valide'] <br>
-    dashboard [name='dashboard'] <br>
-    sif [name='sif'] <br>
+    admin/
+    [name='index']
+    inscription [name='sign_up']
+    mail_valide [name='mail_valide']
+    dashboard [name='dashboard']
+    sif [name='sif']
 ## API : <br>
-    api/login/ [name='login_user'] <br>
-    api/sign_up/ [name='register_user'] <br>
-    api/verify-email/ [name='validate_mail'] <br>
-    api/dashboard/ [name='dashboard'] <br>
-    api/logout/ [name='logout'] <br>
-    api/auto_login/ [name='auto_login'] <br>
-    api/get_sif_status/ [name='get_sif_status'] <br>
-    api/set_sif_status/ [name='set_sif_status'] <br>
-    api/set_sif_change_bungalow/ [name='set_sif_change_bungalow'] <br>
-    api/set_sif_change_pizza/ [name='set_sif_change_pizza'] <br>
-    api/get_paiement_sif/ [name='get_paiement_sif'] <br>
+    api/login/ [name='login_user']
+    api/sign_up/ [name='register_user']
+    api/verify-email/ [name='validate_mail']
+    api/dashboard/ [name='dashboard']
+    api/logout/ [name='logout']
+    api/auto_login/ [name='auto_login']
+    api/get_sif_status/ [name='get_sif_status']
+    api/set_sif_status/ [name='set_sif_status']
+    api/set_sif_change_bungalow/ [name='set_sif_change_bungalow']
+    api/set_sif_change_pizza/ [name='set_sif_change_pizza']
+    api/get_paiement_sif/ [name='get_paiement_sif']
 
 ## Accéder au site web 
 http://localhost/
